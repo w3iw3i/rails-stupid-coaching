@@ -1,15 +1,17 @@
 class QuestionsController < ApplicationController
   def ask
-    @question = params[:question]
   end
 
   def answer
-    if ask.include? "?"
-      @answer = "Stupid question, get back to work!"
-    elsif ask.downcase == "i am going to work right now!"
+    @question = params[:question]
+    if @question.blank?
+      @answer = "I can't hear you!"
+    elsif @question.ends_with?("?")
+      @answer = "Stupid question, get dressed and go to work!"
+    elsif @question =~ /i am going to work/i
       @answer = "Great!"
     else
-      @answer = "I don't care, get back to work!"
+      @answer = "I don't care, get dressed and go to work!"
     end
   end
 end
